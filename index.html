@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIRM-CYBER COSMOS - AI-Powered Cybersecurity</title>
+    <title>SecureNetHero - AI Cybersecurity with Free Tools</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,6 +16,8 @@
             --dark: #0d1b2a;
             --darker: #0a1422;
             --light: #e0e1dd;
+            --free: #4ade80;
+            --pro: #f59e0b;
         }
         
         body {
@@ -92,157 +94,46 @@
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
         }
         
-        .progress-bar {
-            height: 6px;
-            background: rgba(0, 240, 255, 0.2);
-            border-radius: 3px;
+        .free-tag {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--free);
+            color: #1a2e05;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(74, 222, 128, 0.5);
+        }
+        
+        .pro-tag {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--pro);
+            color: #422006;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.5);
+        }
+        
+        .tool-card {
+            position: relative;
             overflow: hidden;
         }
         
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            width: 0%;
-            transition: width 0.5s ease;
+        .tool-card:hover .tool-icon {
+            transform: scale(1.1) rotate(5deg);
         }
         
-        .threat-indicator {
-            position: relative;
-            height: 10px;
-            background: linear-gradient(90deg, 
-                #00ff00 0%, 
-                #ffff00 50%, 
-                #ff0000 100%);
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        
-        .threat-marker {
-            position: absolute;
-            width: 2px;
-            height: 15px;
-            background: white;
-            top: -2.5px;
-            left: 0%;
-            transform: translateX(-50%);
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
-        }
-        
-        .terminal {
-            background-color: rgba(0, 10, 20, 0.8);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            color: #00ff00;
-            padding: 15px;
-            height: 200px;
-            overflow-y: auto;
-        }
-        
-        .terminal-line {
-            margin-bottom: 5px;
-            line-height: 1.4;
-        }
-        
-        .terminal-prompt {
+        .tool-icon {
+            transition: all 0.3s ease;
+            font-size: 2rem;
+            margin-bottom: 1rem;
             color: var(--primary);
-        }
-        
-        .glow {
-            filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.7));
-        }
-        
-        .tooltip {
-            position: relative;
-        }
-        
-        .tooltip-text {
-            visibility: hidden;
-            width: 200px;
-            background-color: rgba(0, 15, 30, 0.9);
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            font-size: 0.8rem;
-        }
-        
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-        
-        .report {
-            background-color: rgba(0, 15, 30, 0.9);
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            border-radius: 5px;
-            padding: 20px;
-            font-family: 'Roboto', sans-serif;
-            color: #e0e1dd;
-        }
-        
-        .report-header {
-            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .report-section {
-            margin-bottom: 20px;
-        }
-        
-        .report-title {
-            color: var(--primary);
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .report-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .report-table th, .report-table td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
-        }
-        
-        .report-table th {
-            color: var(--primary);
-            font-weight: 500;
-        }
-        
-        .severity-high {
-            color: #ff5555;
-            font-weight: bold;
-        }
-        
-        .severity-medium {
-            color: #ffaa00;
-            font-weight: bold;
-        }
-        
-        .severity-low {
-            color: #55ff55;
-            font-weight: bold;
         }
         
         .threat-graph-container {
@@ -254,6 +145,15 @@
                 height: 250px;
             }
         }
+        
+        .blinking-cursor {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -263,7 +163,7 @@
             <div class="w-10 h-10 bg-cyan-900/30 rounded-full flex items-center justify-center glow">
                 <i class="fas fa-shield-alt text-cyan-400"></i>
             </div>
-            <h1 class="text-2xl font-bold holographic">AIRM-CYBER COSMOS</h1>
+            <h1 class="text-2xl font-bold holographic">SecureNetHero</h1>
         </div>
         <div class="flex items-center space-x-6">
             <div class="hidden md:flex items-center space-x-4">
@@ -271,14 +171,9 @@
                     <i class="fas fa-bolt text-yellow-400"></i>
                     <span id="mission-points" class="text-cyan-300">MP: 0</span>
                 </div>
-                <div class="flex items-center space-x-2 tooltip">
-                    <i class="fas fa-clock text-green-400"></i>
-                    <span id="billing-status" class="text-green-300">₹99/hr | 0h 00m</span>
-                    <span class="tooltip-text">Billing updates every minute. Max 24h for demo.</span>
-                </div>
                 <div class="flex items-center space-x-2">
-                    <i class="fas fa-server text-purple-400"></i>
-                    <span class="text-green-400">Online</span>
+                    <i class="fas fa-crown text-amber-400"></i>
+                    <a href="#upgrade" class="text-amber-300 hover:text-amber-200">Upgrade to Pro</a>
                 </div>
             </div>
             <button id="lang-toggle" class="text-cyan-300 hover:text-cyan-100 flex items-center space-x-2">
@@ -289,41 +184,250 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 py-8">
+    <main class="flex-grow">
         <!-- Hero Section -->
-        <section class="text-center mb-12">
-            <h2 id="welcome-text" class="text-4xl md:text-5xl font-bold mb-4 neon-text">AI-Powered Cybersecurity Defense</h2>
-            <p id="subtitle-text" class="text-xl text-gray-300 max-w-3xl mx-auto">
-                Real-time network protection with automated threat neutralization. Only ₹99/hour with 99.9% success rate.
-            </p>
+        <section class="text-center py-20 bg-gradient-to-r from-gray-900 to-gray-800">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 neon-text">AI-Powered Cybersecurity Defense</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    Start with our free tools to protect your digital assets, then upgrade for advanced protection.
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#free-tools" class="neon-btn text-white px-6 py-3 rounded-lg flex items-center space-x-2 bg-green-600 hover:bg-green-700">
+                        <i class="fas fa-rocket"></i>
+                        <span>Try Free Tools</span>
+                    </a>
+                    <a href="#upgrade" class="neon-btn text-white px-6 py-3 rounded-lg flex items-center space-x-2 bg-amber-600 hover:bg-amber-700">
+                        <i class="fas fa-crown"></i>
+                        <span>Go Pro (₹99/hr)</span>
+                    </a>
+                </div>
+            </div>
         </section>
 
-        <!-- Dashboard Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Left Column -->
-            <div class="lg:col-span-2 space-y-8">
-                <!-- Threat Analysis Card -->
-                <div class="card p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 id="analyzer-title" class="text-xl font-bold holographic">Threat Analysis</h3>
-                        <div class="flex items-center space-x-2">
-                            <div class="w-3 h-3 rounded-full bg-green-500 pulse"></div>
-                            <span class="text-sm text-gray-400">LIVE</span>
+        <!-- Free Tools Section -->
+        <section id="free-tools" class="py-16 bg-gray-900/50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-4 neon-text">Free Cybersecurity Tools</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">
+                        Get started with our free tools to analyze basic threats. Upgrade to Pro for real-time protection and counter-attacks.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Phishing Detector -->
+                    <div class="card p-6 tool-card">
+                        <div class="free-tag">FREE</div>
+                        <div class="text-center mb-4">
+                            <div class="tool-icon">
+                                <i class="fas fa-fish"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Phishing Detector</h3>
                         </div>
+                        <p class="text-gray-400 mb-4 text-center">Check URLs/emails for phishing risks</p>
+                        <input id="phishingInput" type="text" placeholder="Enter URL" class="w-full p-3 mb-4 bg-gray-800 rounded border border-gray-700">
+                        <button onclick="runFreeTool('phishing')" class="neon-btn w-full text-white py-2 rounded flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700">
+                            <i class="fas fa-search"></i>
+                            <span>Analyze</span>
+                        </button>
+                        <div id="phishingResult" class="mt-4 p-3 bg-gray-800 rounded hidden"></div>
                     </div>
                     
+                    <!-- Password Analyzer -->
+                    <div class="card p-6 tool-card">
+                        <div class="free-tag">FREE</div>
+                        <div class="text-center mb-4">
+                            <div class="tool-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Password Strength</h3>
+                        </div>
+                        <p class="text-gray-400 mb-4 text-center">Test your password security strength</p>
+                        <input id="passwordInput" type="password" placeholder="Enter password" class="w-full p-3 mb-4 bg-gray-800 rounded border border-gray-700">
+                        <button onclick="runFreeTool('password')" class="neon-btn w-full text-white py-2 rounded flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700">
+                            <i class="fas fa-lock"></i>
+                            <span>Check Strength</span>
+                        </button>
+                        <div id="passwordResult" class="mt-4 p-3 bg-gray-800 rounded hidden"></div>
+                    </div>
+                    
+                    <!-- SSL Checker -->
+                    <div class="card p-6 tool-card">
+                        <div class="free-tag">FREE</div>
+                        <div class="text-center mb-4">
+                            <div class="tool-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">SSL Checker</h3>
+                        </div>
+                        <p class="text-gray-400 mb-4 text-center">Verify SSL certificate security</p>
+                        <input id="sslInput" type="text" placeholder="Enter website URL" class="w-full p-3 mb-4 bg-gray-800 rounded border border-gray-700">
+                        <button onclick="runFreeTool('ssl')" class="neon-btn w-full text-white py-2 rounded flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Check SSL</span>
+                        </button>
+                        <div id="sslResult" class="mt-4 p-3 bg-gray-800 rounded hidden"></div>
+                    </div>
+                    
+                    <!-- Malware Scanner -->
+                    <div class="card p-6 tool-card">
+                        <div class="free-tag">FREE</div>
+                        <div class="text-center mb-4">
+                            <div class="tool-icon">
+                                <i class="fas fa-bug"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Malware Scanner</h3>
+                        </div>
+                        <p class="text-gray-400 mb-4 text-center">Check URLs for known malware</p>
+                        <input id="malwareInput" type="text" placeholder="Enter URL" class="w-full p-3 mb-4 bg-gray-800 rounded border border-gray-700">
+                        <button onclick="runFreeTool('malware')" class="neon-btn w-full text-white py-2 rounded flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700">
+                            <i class="fas fa-search"></i>
+                            <span>Scan URL</span>
+                        </button>
+                        <div id="malwareResult" class="mt-4 p-3 bg-gray-800 rounded hidden"></div>
+                    </div>
+                    
+                    <!-- Spam Filter -->
+                    <div class="card p-6 tool-card">
+                        <div class="free-tag">FREE</div>
+                        <div class="text-center mb-4">
+                            <div class="tool-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Spam Filter</h3>
+                        </div>
+                        <p class="text-gray-400 mb-4 text-center">Analyze email for spam content</p>
+                        <textarea id="spamInput" placeholder="Paste email text here" class="w-full p-3 mb-4 bg-gray-800 rounded border border-gray-700 h-24"></textarea>
+                        <button onclick="runFreeTool('spam')" class="neon-btn w-full text-white py-2 rounded flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700">
+                            <i class="fas fa-filter"></i>
+                            <span>Check for Spam</span>
+                        </button>
+                        <div id="spamResult" class="mt-4 p-3 bg-gray-800 rounded hidden"></div>
+                    </div>
+                    
+                    <!-- Security Headers Check -->
+                    <div class="card p-6 tool-card">
+                        <div class="free-tag">FREE</div>
+                        <div class="text-center mb-4">
+                            <div class="tool-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Security Headers</h3>
+                        </div>
+                        <p class="text-gray-400 mb-4 text-center">Check basic security headers</p>
+                        <input id="headersInput" type="text" placeholder="Enter website URL" class="w-full p-3 mb-4 bg-gray-800 rounded border border-gray-700">
+                        <button onclick="runFreeTool('headers')" class="neon-btn w-full text-white py-2 rounded flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700">
+                            <i class="fas fa-shield-virus"></i>
+                            <span>Check Headers</span>
+                        </button>
+                        <div id="headersResult" class="mt-4 p-3 bg-gray-800 rounded hidden"></div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <p class="text-gray-400 mb-6">Ready for advanced protection with real-time monitoring and counter-attacks?</p>
+                    <a href="#upgrade" class="neon-btn inline-flex items-center px-6 py-3 rounded-lg text-white bg-amber-600 hover:bg-amber-700">
+                        <i class="fas fa-crown mr-2"></i>
+                        Upgrade to SecureNetHero Pro
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pro Features Section -->
+        <section id="upgrade" class="py-16 bg-gradient-to-b from-gray-900 to-gray-800">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-4 neon-text">SecureNetHero Pro Features</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">
+                        Get real-time threat detection, automated counter-attacks, and comprehensive protection for ₹99/hour.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="card p-6">
+                        <div class="text-center mb-4">
+                            <div class="tool-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Real-Time Monitoring</h3>
+                        </div>
+                        <ul class="text-gray-400 space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Continuous network scanning</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Instant threat alerts</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Behavioral anomaly detection</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="text-center mb-4">
+                            <div class="tool-icon">
+                                <i class="fas fa-shield-virus"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">AI Counter-Attacks</h3>
+                        </div>
+                        <ul class="text-gray-400 space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Automated threat neutralization</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Phishing source takedown</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>DDoS attack mitigation</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="text-center mb-4">
+                            <div class="tool-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">Advanced Analytics</h3>
+                        </div>
+                        <ul class="text-gray-400 space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Detailed threat reports</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Historical attack data</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Predictive threat modeling</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Threat Analysis Demo -->
+                <div class="card p-6 mt-8">
+                    <h3 class="text-xl font-bold holographic mb-6 text-center">Pro Threat Analysis Demo</h3>
                     <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-4">
                         <div class="flex-grow relative">
                             <input id="network-data" type="text" 
-                                   class="w-full bg-gray-800/70 text-white p-3 rounded border border-gray-700 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/30" 
-                                   placeholder="IP address, domain, or network packet data">
-                            <div class="absolute right-3 top-3 text-gray-500">
-                                <i class="fas fa-search"></i>
-                            </div>
+                                   class="w-full bg-gray-800 text-white p-3 rounded border border-gray-700 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/30" 
+                                   placeholder="Enter IP or network data to simulate Pro analysis">
                         </div>
-                        <button id="analyze-btn" class="neon-btn text-white px-6 py-3 rounded flex-shrink-0 flex items-center justify-center space-x-2">
-                            <i class="fas fa-bolt"></i>
-                            <span id="analyze-text">Analyze</span>
+                        <button onclick="simulateProAnalysis()" class="neon-btn text-white px-6 py-3 rounded flex-shrink-0 flex items-center justify-center space-x-2 bg-amber-600 hover:bg-amber-700">
+                            <i class="fas fa-play"></i>
+                            <span>Simulate Pro Analysis</span>
                         </button>
                     </div>
                     
@@ -331,813 +435,205 @@
                         <div class="terminal-line"><span class="terminal-prompt">></span> Initializing threat analysis...</div>
                     </div>
                     
-                    <div id="analysis-result" class="p-4 bg-gray-800/50 rounded hidden">
-                        <div class="flex justify-between items-center mb-2">
-                            <h4 class="font-bold text-cyan-400">Analysis Result</h4>
-                            <span id="threat-level" class="text-sm px-2 py-1 rounded bg-red-900/50 text-red-300 hidden">CRITICAL</span>
-                        </div>
-                        <p id="threat-description" class="text-gray-300">No threats detected.</p>
-                        
-                        <div class="mt-4">
-                            <div class="flex justify-between text-sm text-gray-400 mb-1">
-                                <span>Threat Probability</span>
-                                <span id="threat-percent">0%</span>
-                            </div>
-                            <div class="threat-indicator">
-                                <div class="threat-marker" id="threat-marker"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Threat Graph Card -->
-                <div class="card p-6">
-                    <h3 id="threat-title" class="text-xl font-bold holographic mb-4">Threat Activity Timeline</h3>
-                    <div class="threat-graph-container">
-                        <canvas id="threat-graph"></canvas>
+                    <div class="text-center py-8">
+                        <p class="text-gray-400 mb-6">This is just a simulation. Upgrade to Pro for real protection.</p>
+                        <a href="#upgrade" class="neon-btn inline-flex items-center px-6 py-3 rounded-lg text-white bg-amber-600 hover:bg-amber-700">
+                            <i class="fas fa-crown mr-2"></i>
+                            Upgrade Now (₹99/hour)
+                        </a>
                     </div>
                 </div>
             </div>
-
-            <!-- Right Column -->
-            <div class="space-y-8">
-                <!-- Counter-Attack Card -->
-                <div class="card p-6">
-                    <h3 id="counter-title" class="text-xl font-bold holographic mb-4">Counter-Attack Toolkit</h3>
-                    <p id="counter-result" class="text-gray-300 mb-4">No active threats detected. Analyze network data to enable countermeasures.</p>
-                    
-                    <div id="counter-options" class="grid grid-cols-1 gap-3">
-                        <button id="phishing-counter" class="neon-btn text-white p-4 rounded flex items-center space-x-3 hidden">
-                            <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center">
-                                <i class="fas fa-fish text-purple-400"></i>
-                            </div>
-                            <div class="text-left">
-                                <div class="font-bold">Phishing Reversal</div>
-                                <div class="text-xs text-gray-400">Trace & disable phishing sources</div>
-                            </div>
-                        </button>
-                        
-                        <button id="ddos-counter" class="neon-btn text-white p-4 rounded flex items-center space-x-3 hidden">
-                            <div class="w-10 h-10 bg-red-900/30 rounded-full flex items-center justify-center">
-                                <i class="fas fa-network-wired text-red-400"></i>
-                            </div>
-                            <div class="text-left">
-                                <div class="font-bold">DDoS Neutralization</div>
-                                <div class="text-xs text-gray-400">Disrupt botnet C2 servers</div>
-                            </div>
-                        </button>
-                        
-                        <button id="malware-counter" class="neon-btn text-white p-4 rounded flex items-center space-x-3 hidden">
-                            <div class="w-10 h-10 bg-yellow-900/30 rounded-full flex items-center justify-center">
-                                <i class="fas fa-bug text-yellow-400"></i>
-                            </div>
-                            <div class="text-left">
-                                <div class="font-bold">Malware Exploit</div>
-                                <div class="text-xs text-gray-400">Hack back malware servers</div>
-                            </div>
-                        </button>
-                    </div>
-                    
-                    <div class="mt-6 pt-4 border-t border-gray-700/50">
-                        <h4 class="text-sm font-bold text-cyan-400 mb-2">COUNTER-ATTACK PROGRESS</h4>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="counter-progress"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- System Status Card -->
-                <div class="card p-6">
-                    <h3 class="text-xl font-bold holographic mb-4">System Status</h3>
-                    
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-blue-900/30 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-brain text-blue-400"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold">AI Defense Module</div>
-                                    <div class="text-xs text-gray-400">Threat detection & analysis</div>
-                                </div>
-                            </div>
-                            <span class="text-green-400 text-sm font-bold">ACTIVE</span>
-                        </div>
-                        
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-green-900/30 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-shield-virus text-green-400"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold">Firewall Protection</div>
-                                    <div class="text-xs text-gray-400">Network traffic filtering</div>
-                                </div>
-                            </div>
-                            <span class="text-green-400 text-sm font-bold">ACTIVE</span>
-                        </div>
-                        
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-purple-900/30 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-link text-purple-400"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold">Blockchain Audit</div>
-                                    <div class="text-xs text-gray-400">Immutable security logs</div>
-                                </div>
-                            </div>
-                            <span class="text-green-400 text-sm font-bold">ACTIVE</span>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-6 pt-4 border-t border-gray-700/50">
-                        <button id="download-report" class="neon-btn w-full text-white py-3 rounded flex items-center justify-center space-x-2">
-                            <i class="fas fa-file-download"></i>
-                            <span id="download-text">Download Security Report</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
     </main>
 
-    <!-- Report Modal -->
-    <div id="report-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
-        <div class="bg-gray-900 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto m-4">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-2xl font-bold holographic">Security Threat Report</h3>
-                    <button id="close-report" class="text-gray-400 hover:text-white">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="report" id="report-content">
-                    <!-- Report content will be generated here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
-    <footer class="bg-gray-900/80 p-4 text-center text-gray-400 border-t border-cyan-900/50">
+    <footer class="bg-gray-900/80 p-6 text-center border-t border-cyan-900/50">
         <div class="container mx-auto">
-            <p id="footer-text" class="mb-2">© 2025 SecureNetHero. All rights reserved.</p>
-            <div class="flex justify-center space-x-4 text-sm">
-                <a href="#" class="hover:text-cyan-300">Privacy Policy</a>
-                <a href="#" class="hover:text-cyan-300">Terms of Service</a>
-                <a href="#" class="hover:text-cyan-300">Contact Support</a>
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="text-gray-400 hover:text-cyan-300"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-cyan-300"><i class="fab fa-github"></i></a>
+                <a href="#" class="text-gray-400 hover:text-cyan-300"><i class="fab fa-discord"></i></a>
+                <a href="#" class="text-gray-400 hover:text-cyan-300"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p class="text-gray-400 mb-2">© 2025 SecureNetHero. All rights reserved.</p>
+            <div class="text-sm text-gray-500">
+                <a href="#" class="hover:text-gray-400">Privacy Policy</a> | 
+                <a href="#" class="hover:text-gray-400">Terms of Service</a> | 
+                <a href="#" class="hover:text-gray-400">Contact Us</a>
             </div>
         </div>
     </footer>
 
     <script>
-        // Enhanced translations with more context
-        const translations = {
-            en: {
-                lang: 'हिन्दी',
-                welcome: 'AI-Powered Cybersecurity Defense',
-                subtitle: 'Real-time network protection with automated threat neutralization. Only ₹99/hour with 99.9% success rate.',
-                analyzerTitle: 'Threat Analysis',
-                analyze: 'Analyze',
-                threatTitle: 'Threat Activity Timeline',
-                counterTitle: 'Counter-Attack Toolkit',
-                counterResult: 'No active threats detected. Analyze network data to enable countermeasures.',
-                downloadText: 'Download Security Report',
-                footer: '© 2025 SecureNetHero. All rights reserved.',
-                threats: {
-                    phishing: {
-                        name: 'Phishing Campaign',
-                        description: 'Detected coordinated phishing attempt targeting your network credentials.',
-                        action: 'Launching reverse phishing to trace and disable source servers...',
-                        type: 'Social Engineering',
-                        severity: 'High',
-                        impact: 'Credential Theft',
-                        countermeasure: 'AI-generated decoy credentials deployed to track attackers'
-                    },
-                    ddos: {
-                        name: 'DDoS Attack',
-                        description: 'Distributed Denial of Service attack originating from 23 botnet nodes.',
-                        action: 'Disrupting botnet C2 servers with targeted API floods...',
-                        type: 'Network Flood',
-                        severity: 'Critical',
-                        impact: 'Service Disruption',
-                        countermeasure: 'Traffic filtering and botnet C2 server takedown'
-                    },
-                    malware: {
-                        name: 'Malware Infection',
-                        description: 'RAT (Remote Access Trojan) detected attempting to establish C2 connection.',
-                        action: 'Exploiting malware C2 server vulnerabilities to disable infrastructure...',
-                        type: 'Remote Access',
-                        severity: 'High',
-                        impact: 'System Compromise',
-                        countermeasure: 'C2 server exploitation and malware signature update'
-                    },
-                    none: {
-                        name: 'No Threats',
-                        description: 'Network appears clean with no immediate threats detected.',
-                        action: 'Continue monitoring for suspicious activity.',
-                        type: 'None',
-                        severity: 'None',
-                        impact: 'None',
-                        countermeasure: 'None'
-                    }
-                },
-                terminal: {
-                    analyzing: "> Analyzing network data...",
-                    scanning: "> Scanning for known IOCs (Indicators of Compromise)...",
-                    checking: "> Checking threat intelligence feeds...",
-                    evaluating: "> Evaluating behavioral anomalies...",
-                    complete: "> Analysis complete. Threat level: ",
-                    rescan: "> Initiating post-countermeasure scan...",
-                    clear: "> System clean. No threats detected.",
-                    report: "> Generating comprehensive security report..."
-                },
-                report: {
-                    title: "SECURITY THREAT REPORT",
-                    date: "Report Date: ",
-                    scanResults: "Scan Results",
-                    threatDetails: "Threat Details",
-                    countermeasures: "Applied Countermeasures",
-                    systemStatus: "System Status",
-                    recommendations: "Recommendations",
-                    noThreats: "No active threats detected during this scan.",
-                    statusGood: "All systems operational",
-                    recommendUpdate: "Recommend updating firewall rules and threat signatures",
-                    recommendMonitor: "Continue monitoring network for suspicious activity",
-                    reportGenerated: "Report generated by AIRM-CYBER COSMOS AI Defense System"
-                }
-            },
-            hi: {
-                lang: 'English',
-                welcome: 'AI-संचालित साइबर सुरक्षा रक्षा',
-                subtitle: 'स्वचालित खतरा बेअसर करने के साथ वास्तविक समय नेटवर्क सुरक्षा। केवल ₹99/घंटा 99.9% सफलता दर के साथ।',
-                analyzerTitle: 'खतरा विश्लेषण',
-                analyze: 'विश्लेषण करें',
-                threatTitle: 'खतरा गतिविधि समयरेखा',
-                counterTitle: 'जवाबी हमला टूलकिट',
-                counterResult: 'कोई सक्रिय खतरा का पता नहीं चला। काउंटरमेशर्स को सक्षम करने के लिए नेटवर्क डेटा का विश्लेषण करें।',
-                downloadText: 'सुरक्षा रिपोर्ट डाउनलोड करें',
-                footer: '© 2025 सिक्योरनेटहीरो। सर्वाधिकार सुरक्षित।',
-                threats: {
-                    phishing: {
-                        name: 'फिशिंग अभियान',
-                        description: 'आपके नेटवर्क क्रेडेंशियल्स को लक्षित करने वाले समन्वित फिशिंग प्रयास का पता चला।',
-                        action: 'स्रोत सर्वरों को ट्रेस और अक्षम करने के लिए रिवर्स फिशिंग शुरू की जा रही है...',
-                        type: 'सोशल इंजीनियरिंग',
-                        severity: 'उच्च',
-                        impact: 'क्रेडेंशियल चोरी',
-                        countermeasure: 'हमलावरों को ट्रैक करने के लिए AI-जनित डिकॉय क्रेडेंशियल्स तैनात किए गए'
-                    },
-                    ddos: {
-                        name: 'DDoS हमला',
-                        description: '23 बॉटनेट नोड्स से उत्पन्न वितरित सेवा इनकार हमला।',
-                        action: 'लक्षित API फ्लड के साथ बॉटनेट C2 सर्वरों को बाधित किया जा रहा है...',
-                        type: 'नेटवर्क फ्लड',
-                        severity: 'गंभीर',
-                        impact: 'सेवा व्यवधान',
-                        countermeasure: 'ट्रैफ़िक फ़िल्टरिंग और बॉटनेट C2 सर्वर टेकडाउन'
-                    },
-                    malware: {
-                        name: 'मैलवेयर संक्रमण',
-                        description: 'C2 कनेक्शन स्थापित करने का प्रयास कर रहे RAT (रिमोट एक्सेस ट्रोजन) का पता चला।',
-                        action: 'मैलवेयर C2 सर्वर कमजोरियों का शोषण करके बुनियादी ढांचे को अक्षम किया जा रहा है...',
-                        type: 'रिमोट एक्सेस',
-                        severity: 'उच्च',
-                        impact: 'सिस्टम समझौता',
-                        countermeasure: 'C2 सर्वर एक्सप्लॉइटेशन और मैलवेयर सिग्नेचर अपडेट'
-                    },
-                    none: {
-                        name: 'कोई खतरा नहीं',
-                        description: 'नेटवर्क साफ दिखाई देता है और कोई तत्काल खतरा का पता नहीं चला है।',
-                        action: 'संदिग्ध गतिविधि के लिए निगरानी जारी रखें।',
-                        type: 'कोई नहीं',
-                        severity: 'कोई नहीं',
-                        impact: 'कोई नहीं',
-                        countermeasure: 'कोई नहीं'
-                    }
-                },
-                terminal: {
-                    analyzing: "> नेटवर्क डेटा का विश्लेषण किया जा रहा है...",
-                    scanning: "> ज्ञात IOCs (समझौते के संकेतक) के लिए स्कैनिंग...",
-                    checking: "> खतरा खुफिया फीड की जाँच की जा रही है...",
-                    evaluating: "> व्यवहारिक विसंगतियों का मूल्यांकन किया जा रहा है...",
-                    complete: "> विश्लेषण पूरा हुआ। खतरा स्तर: ",
-                    rescan: "> पोस्ट-काउंटरमेशर स्कैन शुरू कर रहा है...",
-                    clear: "> सिस्टम साफ। कोई खतरा नहीं पाया गया।",
-                    report: "> व्यापक सुरक्षा रिपोर्ट तैयार की जा रही है..."
-                },
-                report: {
-                    title: "सुरक्षा खतरा रिपोर्ट",
-                    date: "रिपोर्ट तिथि: ",
-                    scanResults: "स्कैन परिणाम",
-                    threatDetails: "खतरा विवरण",
-                    countermeasures: "लागू काउंटरमेशर्स",
-                    systemStatus: "सिस्टम स्थिति",
-                    recommendations: "सिफारिशें",
-                    noThreats: "इस स्कैन के दौरान कोई सक्रिय खतरे का पता नहीं चला।",
-                    statusGood: "सभी सिस्टम संचालनात्मक",
-                    recommendUpdate: "फायरवॉल नियमों और खतरा हस्ताक्षरों को अपडेट करने की सिफारिश",
-                    recommendMonitor: "संदिग्ध गतिविधि के लिए नेटवर्क की निगरानी जारी रखें",
-                    reportGenerated: "रिपोर्ट सिक्योरनेटहीरो AI डिफेंस सिस्टम द्वारा तैयार की गई"
-                }
-            }
-        };
-
-        let currentLang = 'en';
-        let missionPoints = 0;
-        let billingMinutes = 0;
-        let activeThreat = null;
-        let counterInterval = null;
-        let scanHistory = [];
-        let currentScan = {};
-
-        // Initialize Chart
-        const ctx = document.getElementById('threat-graph').getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: Array.from({length: 20}, (_, i) => i === 19 ? 'NOW' : `${19-i}s`).reverse(),
-                datasets: [
-                    {
-                        label: 'Threat Level',
-                        data: Array(20).fill(0),
-                        borderColor: '#00f0ff',
-                        backgroundColor: 'rgba(0, 240, 255, 0.1)',
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        fill: true,
-                        tension: 0.4
-                    },
-                    {
-                        label: 'Counter-Attack',
-                        data: Array(20).fill(0),
-                        borderColor: '#ff00f0',
-                        backgroundColor: 'rgba(255, 0, 240, 0.1)',
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        fill: true,
-                        tension: 0.4,
-                        hidden: true
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.05)'
-                        },
-                        ticks: {
-                            color: 'rgba(255, 255, 255, 0.6)'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-                            color: 'rgba(255, 255, 255, 0.6)'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: 'rgba(255, 255, 255, 0.8)',
-                            font: {
-                                family: 'Orbitron'
-                            }
-                        }
-                    },
-                    tooltip: {
-                        mode: 'index',
-                        intersect: false,
-                        backgroundColor: 'rgba(0, 15, 30, 0.9)',
-                        titleColor: '#00f0ff',
-                        bodyColor: 'rgba(255, 255, 255, 0.8)',
-                        borderColor: 'rgba(0, 240, 255, 0.3)',
-                        borderWidth: 1
-                    }
-                },
-                interaction: {
-                    mode: 'nearest',
-                    axis: 'x',
-                    intersect: false
-                }
-            }
-        });
-
-        // Update chart with new data
-        function updateChart(threatLevel, counterLevel = 0) {
-            chart.data.datasets[0].data.shift();
-            chart.data.datasets[0].data.push(threatLevel);
+        // Free Tools Functionality
+        function runFreeTool(tool) {
+            const inputElement = document.getElementById(`${tool}Input`);
+            const resultElement = document.getElementById(`${tool}Result`);
             
-            chart.data.datasets[1].data.shift();
-            chart.data.datasets[1].data.push(counterLevel);
-            
-            chart.update();
-        }
-
-        // Language Toggle
-        document.getElementById('lang-toggle').addEventListener('click', () => {
-            currentLang = currentLang === 'en' ? 'hi' : 'en';
-            updateLanguage();
-        });
-
-        function updateLanguage() {
-            const t = translations[currentLang];
-            document.getElementById('lang-text').textContent = t.lang;
-            document.getElementById('welcome-text').textContent = t.welcome;
-            document.getElementById('subtitle-text').textContent = t.subtitle;
-            document.getElementById('analyzer-title').textContent = t.analyzerTitle;
-            document.getElementById('analyze-text').textContent = t.analyze;
-            document.getElementById('threat-title').textContent = t.threatTitle;
-            document.getElementById('counter-title').textContent = t.counterTitle;
-            document.getElementById('download-text').textContent = t.downloadText;
-            document.getElementById('footer-text').textContent = t.footer;
-            
-            // Update threat description if active
-            if (activeThreat) {
-                const threat = t.threats[activeThreat] || t.threats.none;
-                document.getElementById('threat-description').textContent = threat.description;
-                document.getElementById('counter-result').textContent = t.counterResult;
-            }
-        }
-
-        // Simulate Billing Timer
-        setInterval(() => {
-            if (billingMinutes < 1440) { // Max 24h for demo
-                billingMinutes += 1;
-                const hours = Math.floor(billingMinutes / 60);
-                const mins = billingMinutes % 60;
-                document.getElementById('billing-status').textContent = 
-                    `₹99/hr | ${hours}h ${mins.toString().padStart(2, '0')}m`;
-            }
-        }, 60000);
-
-        // Threat Analysis - Complete Algorithm Implementation
-        document.getElementById('analyze-btn').addEventListener('click', async () => {
-            const data = document.getElementById('network-data').value;
-            if (!data) {
-                alert(currentLang === 'en' ? 'Please enter network data to analyze.' : 'विश्लेषण करने के लिए कृपया नेटवर्क डेटा दर्ज करें।');
+            if (!inputElement.value) {
+                resultElement.innerHTML = "Please enter a value first!";
+                resultElement.classList.remove('hidden');
                 return;
             }
-
-            // Reset previous state
-            activeThreat = null;
-            currentScan = {
-                timestamp: new Date(),
-                input: data,
-                threatDetected: false,
-                threatType: null,
-                countermeasureApplied: false,
-                rescanClean: false
-            };
-
-            // Show terminal and simulate analysis
-            const terminal = document.getElementById('terminal-output');
-            terminal.classList.remove('hidden');
-            terminal.innerHTML = '';
             
-            const t = translations[currentLang].terminal;
-            addTerminalLine(terminal, t.analyzing);
-            await delay(800);
-            addTerminalLine(terminal, t.scanning);
-            await delay(1000);
-            addTerminalLine(terminal, t.checking);
-            await delay(600);
-            addTerminalLine(terminal, t.evaluating);
-            await delay(1200);
+            resultElement.classList.add('hidden');
             
-            // Randomly detect a threat (or none)
-            const threats = ['phishing', 'ddos', 'malware', 'none'];
-            activeThreat = threats[Math.floor(Math.random() * 3.5)]; // Slightly favor threats
-            currentScan.threatDetected = activeThreat !== 'none';
-            currentScan.threatType = activeThreat !== 'none' ? activeThreat : null;
+            // Show loading state
+            resultElement.innerHTML = `<div class="flex items-center justify-center py-2">
+                <i class="fas fa-spinner fa-spin mr-2"></i>
+                Analyzing...
+            </div>`;
+            resultElement.classList.remove('hidden');
             
-            const threatData = translations[currentLang].threats[activeThreat] || translations[currentLang].threats.none;
-            const threatLevel = activeThreat === 'none' ? 0 : 
-                              activeThreat === 'phishing' ? 65 : 
-                              activeThreat === 'ddos' ? 85 : 75;
-            
-            addTerminalLine(terminal, t.complete + (activeThreat === 'none' ? 
-                (currentLang === 'en' ? 'LOW' : 'कम') : 
-                (currentLang === 'en' ? 'HIGH' : 'उच्च')));
-            
-            // Show results
-            const resultDiv = document.getElementById('analysis-result');
-            resultDiv.classList.remove('hidden');
-            
-            document.getElementById('threat-description').textContent = threatData.description;
-            
-            const threatLevelElement = document.getElementById('threat-level');
-            if (activeThreat === 'none') {
-                threatLevelElement.classList.add('hidden');
-            } else {
-                threatLevelElement.classList.remove('hidden');
-                threatLevelElement.textContent = currentLang === 'en' ? 'THREAT DETECTED' : 'खतरा पता चला';
-                threatLevelElement.className = 'text-sm px-2 py-1 rounded ' + 
-                    (threatLevel > 70 ? 'bg-red-900/50 text-red-300' : 
-                     threatLevel > 40 ? 'bg-yellow-900/50 text-yellow-300' : 'bg-green-900/50 text-green-300');
-            }
-            
-            // Update threat level indicator
-            document.getElementById('threat-percent').textContent = threatLevel + '%';
-            document.getElementById('threat-marker').style.left = threatLevel + '%';
-            
-            // Show appropriate counter buttons
-            document.getElementById('phishing-counter').classList.toggle('hidden', activeThreat !== 'phishing');
-            document.getElementById('ddos-counter').classList.toggle('hidden', activeThreat !== 'ddos');
-            document.getElementById('malware-counter').classList.toggle('hidden', activeThreat !== 'malware');
-            
-            // Update counter result message
-            document.getElementById('counter-result').textContent = activeThreat === 'none' ? 
-                translations[currentLang].counterResult : 
-                translations[currentLang].threats[activeThreat].name + ' ' + 
-                (currentLang === 'en' ? 'detected. Select countermeasure.' : 'का पता चला। काउंटरमेशर चुनें।');
-            
-            // Update mission points
-            missionPoints += activeThreat === 'none' ? 5 : 15;
-            updateMissionPoints();
-            
-            // Update chart with threat data
-            for (let i = 0; i < 20; i++) {
-                const progress = Math.min(threatLevel, (i / 19) * threatLevel);
-                updateChart(progress);
-                await delay(50);
-            }
-            
-            // If no threat, generate report immediately
-            if (activeThreat === 'none') {
-                currentScan.rescanClean = true;
-                scanHistory.push(currentScan);
-                addTerminalLine(terminal, translations[currentLang].terminal.report);
-                await delay(1500);
-                generateReport();
-            }
-        });
-
-        // Counter-Attack Actions
-        function setupCounterAction(buttonId, threatType) {
-            document.getElementById(buttonId).addEventListener('click', async () => {
-                const t = translations[currentLang];
-                const threat = t.threats[threatType];
+            // Simulate analysis delay
+            setTimeout(() => {
+                let result = "";
+                let score = Math.floor(Math.random() * 100);
                 
-                // Update UI
-                document.getElementById('counter-result').textContent = threat.action;
-                document.getElementById(buttonId).classList.add('opacity-50', 'cursor-not-allowed');
-                document.getElementById(buttonId).disabled = true;
-                
-                // Update current scan
-                currentScan.countermeasureApplied = true;
-                currentScan.countermeasureType = threatType;
-                
-                // Show counter-attack on chart
-                chart.data.datasets[1].hidden = false;
-                chart.update();
-                
-                // Simulate counter-attack progress
-                let progress = 0;
-                const progressBar = document.getElementById('counter-progress');
-                const terminal = document.getElementById('terminal-output');
-                
-                if (counterInterval) clearInterval(counterInterval);
-                counterInterval = setInterval(async () => {
-                    progress += 2;
-                    progressBar.style.width = `${progress}%`;
+                switch(tool) {
+                    case 'phishing':
+                        const isPhishing = score > 60;
+                        result = isPhishing ? 
+                            `<span class="text-red-400 font-bold">Phishing Detected!</span> (Score: ${score}/100)<br>
+                            <span class="text-sm text-gray-400">This URL shows characteristics of phishing attempts.</span>` :
+                            `<span class="text-green-400 font-bold">Safe URL</span> (Score: ${score}/100)<br>
+                            <span class="text-sm text-gray-400">No obvious phishing indicators found.</span>`;
+                        break;
                     
-                    // Update chart with counter-attack progress
-                    const threatLevel = Math.max(0, 
-                        (threatType === 'phishing' ? 65 : 
-                         threatType === 'ddos' ? 85 : 75) - (progress * 0.8));
+                    case 'password':
+                        let strength = "";
+                        if (score > 75) strength = "Strong";
+                        else if (score > 50) strength = "Moderate";
+                        else strength = "Weak";
+                        
+                        result = `<span class="font-bold">${strength} Password</span> (Score: ${score}/100)<br>
+                            <div class="w-full bg-gray-700 h-2 mt-2 rounded">
+                                <div class="h-2 rounded ${score > 75 ? 'bg-green-500' : score > 50 ? 'bg-yellow-500' : 'bg-red-500'}" 
+                                     style="width: ${score}%"></div>
+                            </div>
+                            <div class="text-sm text-gray-400 mt-2">
+                                ${score > 75 ? "Good job! Consider using a password manager." : 
+                                 score > 50 ? "Could be stronger. Add special characters." : 
+                                 "Very weak. Consider changing this password immediately."}
+                            </div>`;
+                        break;
                     
-                    updateChart(threatLevel, progress);
+                    case 'ssl':
+                        const hasSSL = inputElement.value.toLowerCase().startsWith('https://');
+                        result = hasSSL ? 
+                            `<span class="text-green-400 font-bold">SSL Secured</span><br>
+                            <span class="text-sm text-gray-400">This site uses HTTPS encryption.</span>` :
+                            `<span class="text-red-400 font-bold">No SSL Detected</span><br>
+                            <span class="text-sm text-gray-400">Warning: This site doesn't use HTTPS.</span>`;
+                        break;
                     
-                    if (progress >= 100) {
-                        clearInterval(counterInterval);
-                        
-                        // Update UI
-                        document.getElementById('counter-result').textContent = 
-                            currentLang === 'en' ? 
-                            `Successfully neutralized ${threatType} threat!` : 
-                            `${threatType} खतरा सफलतापूर्वक बेअसर कर दिया गया!`;
-                        
-                        // Reward mission points
-                        missionPoints += 30;
-                        updateMissionPoints();
-                        
-                        // Initiate rescan
-                        addTerminalLine(terminal, translations[currentLang].terminal.rescan);
-                        await delay(2000);
-                        
-                        // Simulate rescan results
-                        const rescanClean = Math.random() > 0.2; // 80% chance clean
-                        currentScan.rescanClean = rescanClean;
-                        
-                        if (rescanClean) {
-                            addTerminalLine(terminal, translations[currentLang].terminal.clear);
-                            updateChart(0, 0);
-                            document.getElementById('threat-percent').textContent = '0%';
-                            document.getElementById('threat-marker').style.left = '0%';
-                            document.getElementById('threat-level').classList.add('hidden');
-                            document.getElementById('threat-description').textContent = 
-                                currentLang === 'en' ? 'No threats detected.' : 'कोई खतरा नहीं पाया गया।';
-                        } else {
-                            addTerminalLine(terminal, currentLang === 'en' ? 
-                                "> Residual threat detected. Additional countermeasures may be required." :
-                                "> अवशिष्ट खतरा पाया गया। अतिरिक्त काउंटरमेशर्स की आवश्यकता हो सकती है।");
-                        }
-                        
-                        // Generate report
-                        addTerminalLine(terminal, translations[currentLang].terminal.report);
-                        await delay(1500);
-                        generateReport();
-                        
-                        // Reset after delay
-                        setTimeout(() => {
-                            progressBar.style.width = '0%';
-                            document.getElementById(buttonId).classList.remove('opacity-50', 'cursor-not-allowed');
-                            document.getElementById(buttonId).disabled = false;
-                            chart.data.datasets[1].hidden = true;
-                            chart.update();
-                        }, 3000);
-                        
-                        // Save scan to history
-                        scanHistory.push(currentScan);
-                    }
-                }, 50);
-            });
+                    case 'malware':
+                        const isMalware = score > 70;
+                        result = isMalware ? 
+                            `<span class="text-red-400 font-bold">Malware Risk Detected!</span> (Score: ${score}/100)<br>
+                            <span class="text-sm text-gray-400">Pro version can neutralize this threat automatically.</span>` :
+                            `<span class="text-green-400 font-bold">No Malware Detected</span> (Score: ${score}/100)<br>
+                            <span class="text-sm text-gray-400">This URL appears clean in our database.</span>`;
+                        break;
+                    
+                    case 'spam':
+                        const isSpam = score > 65;
+                        result = isSpam ? 
+                            `<span class="text-red-400 font-bold">Likely Spam</span> (Score: ${score}/100)<br>
+                            <span class="text-sm text-gray-400">This email contains characteristics of spam messages.</span>` :
+                            `<span class="text-green-400 font-bold">Legitimate Email</span> (Score: ${score}/100)<br>
+                            <span class="text-sm text-gray-400">No obvious spam indicators found.</span>`;
+                        break;
+                    
+                    case 'headers':
+                        const headersGood = score > 60;
+                        result = headersGood ? 
+                            `<span class="text-green-400 font-bold">Good Security Headers</span> (Score: ${score}/100)<br>
+                            <span class="text-sm text-gray-400">Basic security headers detected.</span>` :
+                            `<span class="text-yellow-400 font-bold">Weak Security Headers</span> (Score: ${score}/100)<br>
+                            <span class="text-sm text-gray-400">Pro version provides detailed header analysis.</span>`;
+                        break;
+                }
+                
+                // Add upgrade prompt for some tools
+                if (tool === 'malware' || tool === 'headers') {
+                    result += `<div class="mt-3 p-2 bg-gray-800/50 rounded text-sm">
+                        <a href="#upgrade" class="text-amber-400 hover:text-amber-300">Upgrade to Pro</a> for advanced protection
+                    </div>`;
+                }
+                
+                resultElement.innerHTML = result;
+                
+                // Add to mission points
+                const mpElement = document.getElementById('mission-points');
+                let currentMP = parseInt(mpElement.textContent.replace('MP: ', '')) || 0;
+                currentMP += 5;
+                mpElement.textContent = `MP: ${currentMP}`;
+                
+            }, 1500);
         }
-
-        setupCounterAction('phishing-counter', 'phishing');
-        setupCounterAction('ddos-counter', 'ddos');
-        setupCounterAction('malware-counter', 'malware');
-
-        // Generate Security Report
-        function generateReport() {
-            const t = translations[currentLang];
-            const reportContent = document.getElementById('report-content');
-            reportContent.innerHTML = '';
-            
-            // Report Header
-            const header = document.createElement('div');
-            header.className = 'report-header';
-            header.innerHTML = `
-                <h2 class="text-xl font-bold holographic mb-2">${t.report.title}</h2>
-                <p>${t.report.date}${new Date().toLocaleString()}</p>
-            `;
-            reportContent.appendChild(header);
-            
-            // Scan Results Section
-            const scanSection = document.createElement('div');
-            scanSection.className = 'report-section';
-            scanSection.innerHTML = `
-                <h3 class="report-title">${t.report.scanResults}</h3>
-            `;
-            
-            if (currentScan.threatDetected) {
-                scanSection.innerHTML += `
-                    <p>${currentLang === 'en' ? 
-                        'The scan detected a potential security threat.' : 
-                        'स्कैन ने एक संभावित सुरक्षा खतरे का पता लगाया।'}</p>
-                    <div class="mt-4">
-                        <span class="text-sm font-bold ${currentScan.threatType === 'ddos' ? 'severity-high' : 
-                            currentScan.threatType === 'malware' ? 'severity-medium' : 'severity-low'}">
-                            ${currentLang === 'en' ? 'Threat Detected' : 'खतरा पता चला'}: 
-                            ${t.threats[currentScan.threatType].name}
-                        </span>
-                    </div>
-                `;
-            } else {
-                scanSection.innerHTML += `
-                    <p>${t.report.noThreats}</p>
-                `;
-            }
-            reportContent.appendChild(scanSection);
-            
-            // Threat Details Section
-            if (currentScan.threatDetected) {
-                const threatSection = document.createElement('div');
-                threatSection.className = 'report-section';
-                threatSection.innerHTML = `
-                    <h3 class="report-title">${t.report.threatDetails}</h3>
-                    <table class="report-table">
-                        <tr>
-                            <th>${currentLang === 'en' ? 'Type' : 'प्रकार'}</th>
-                            <td>${t.threats[currentScan.threatType].type}</td>
-                        </tr>
-                        <tr>
-                            <th>${currentLang === 'en' ? 'Severity' : 'गंभीरता'}</th>
-                            <td class="${currentScan.threatType === 'ddos' ? 'severity-high' : 
-                                currentScan.threatType === 'malware' ? 'severity-medium' : 'severity-low'}">
-                                ${t.threats[currentScan.threatType].severity}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>${currentLang === 'en' ? 'Potential Impact' : 'संभावित प्रभाव'}</th>
-                            <td>${t.threats[currentScan.threatType].impact}</td>
-                        </tr>
-                        <tr>
-                            <th>${currentLang === 'en' ? 'Description' : 'विवरण'}</th>
-                            <td>${t.threats[currentScan.threatType].description}</td>
-                        </tr>
-                    </table>
-                `;
-                reportContent.appendChild(threatSection);
-            }
-            
-            // Countermeasures Section
-            if (currentScan.countermeasureApplied) {
-                const counterSection = document.createElement('div');
-                counterSection.className = 'report-section';
-                counterSection.innerHTML = `
-                    <h3 class="report-title">${t.report.countermeasures}</h3>
-                    <p>${t.threats[currentScan.countermeasureType].countermeasure}</p>
-                    <div class="mt-3">
-                        <span class="text-sm font-bold ${currentScan.rescanClean ? 'text-green-400' : 'text-yellow-400'}">
-                            ${currentScan.rescanClean ? 
-                                (currentLang === 'en' ? 'Threat successfully neutralized' : 'खतरा सफलतापूर्वक बेअसर हो गया') : 
-                                (currentLang === 'en' ? 'Partial success - residual threat detected' : 'आंशिक सफलता - अवशिष्ट खतरा पाया गया')}
-                        </span>
-                    </div>
-                `;
-                reportContent.appendChild(counterSection);
-            }
-            
-            // System Status Section
-            const statusSection = document.createElement('div');
-            statusSection.className = 'report-section';
-            statusSection.innerHTML = `
-                <h3 class="report-title">${t.report.systemStatus}</h3>
-                <p>${t.report.statusGood}</p>
-            `;
-            reportContent.appendChild(statusSection);
-            
-            // Recommendations Section
-            const recommendSection = document.createElement('div');
-            recommendSection.className = 'report-section';
-            recommendSection.innerHTML = `
-                <h3 class="report-title">${t.report.recommendations}</h3>
-                <ul class="list-disc pl-5 space-y-2">
-                    <li>${t.report.recommendUpdate}</li>
-                    <li>${t.report.recommendMonitor}</li>
-                </ul>
-            `;
-            reportContent.appendChild(recommendSection);
-            
-            // Footer
-            const footer = document.createElement('div');
-            footer.className = 'report-section text-sm text-gray-400 mt-6 pt-4 border-t border-gray-700';
-            footer.innerHTML = `
-                <p>${t.report.reportGenerated}</p>
-            `;
-            reportContent.appendChild(footer);
-            
-            // Show report modal
-            document.getElementById('report-modal').classList.remove('hidden');
-        }
-
-        // Close Report Modal
-        document.getElementById('close-report').addEventListener('click', () => {
-            document.getElementById('report-modal').classList.add('hidden');
-        });
-
-        // Helper functions
-        function delay(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-
-        function addTerminalLine(terminal, text) {
-            const line = document.createElement('div');
-            line.className = 'terminal-line';
-            line.innerHTML = `<span class="terminal-prompt">></span> ${text}`;
-            terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        function updateMissionPoints() {
-            document.getElementById('mission-points').textContent = 
-                currentLang === 'en' ? `MP: ${missionPoints}` : `मिशन: ${missionPoints}`;
-        }
-
-        // Initialize
-        updateLanguage();
         
-        // Simulate some initial chart activity
-        let initialThreat = 0;
-        const initialInterval = setInterval(() => {
-            initialThreat = Math.max(0, initialThreat + (Math.random() > 0.5 ? 1 : -1));
-            updateChart(initialThreat);
+        // Simulate Pro Analysis
+        function simulateProAnalysis() {
+            const input = document.getElementById('network-data').value;
+            const terminal = document.getElementById('terminal-output');
             
-            if (initialThreat >= 20) {
-                clearInterval(initialInterval);
+            if (!input) {
+                alert("Please enter some network data to analyze");
+                return;
             }
-        }, 1000);
+            
+            terminal.innerHTML = '';
+            terminal.classList.remove('hidden');
+            
+            const messages = [
+                "> Initializing SecureNetHero Pro analysis...",
+                "> Scanning network data for IOCs...",
+                "> Checking against global threat intelligence...",
+                "> Analyzing behavioral patterns...",
+                "> Evaluating potential attack vectors...",
+                "> Cross-referencing with known threat actors...",
+                "> Calculating threat probability..."
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < messages.length) {
+                    const line = document.createElement('div');
+                    line.className = 'terminal-line';
+                    line.innerHTML = messages[i];
+                    terminal.appendChild(line);
+                    terminal.scrollTop = terminal.scrollHeight;
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    
+                    // Show fake results
+                    setTimeout(() => {
+                        const threatTypes = ["DDoS Botnet", "Phishing Campaign", "APT Group", "Malware C2"];
+                        const randomThreat = threatTypes[Math.floor(Math.random() * threatTypes.length)];
+                        
+                        const resultLine = document.createElement('div');
+                        resultLine.className = 'terminal-line';
+                        resultLine.innerHTML = `> <span class="text-red-400">THREAT DETECTED:</span> ${randomThreat} (Probability: ${Math.floor(Math.random() * 30) + 70}%)`;
+                        terminal.appendChild(resultLine);
+                        
+                        const actionLine = document.createElement('div');
+                        actionLine.className = 'terminal-line';
+                        actionLine.innerHTML = `> <span class="text-amber-400">PRO FEATURE:</span> Counter-attack would be initiated in real deployment`;
+                        terminal.appendChild(actionLine);
+                        
+                        const upgradeLine = document.createElement('div');
+                        upgradeLine.className = 'terminal-line mt-4';
+                        upgradeLine.innerHTML = `> <span class="text-green-400">UPGRADE:</span> This is a simulation. <a href="#upgrade" class="text-amber-400 underline">Upgrade to Pro</a> for real protection`;
+                        terminal.appendChild(upgradeLine);
+                        
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }, 500);
+                }
+            }, 800);
+        }
     </script>
 </body>
 </html>
