@@ -188,6 +188,72 @@
             visibility: visible;
             opacity: 1;
         }
+        
+        .report {
+            background-color: rgba(0, 15, 30, 0.9);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 5px;
+            padding: 20px;
+            font-family: 'Roboto', sans-serif;
+            color: #e0e1dd;
+        }
+        
+        .report-header {
+            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .report-section {
+            margin-bottom: 20px;
+        }
+        
+        .report-title {
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .report-table th, .report-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+        
+        .report-table th {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .severity-high {
+            color: #ff5555;
+            font-weight: bold;
+        }
+        
+        .severity-medium {
+            color: #ffaa00;
+            font-weight: bold;
+        }
+        
+        .severity-low {
+            color: #55ff55;
+            font-weight: bold;
+        }
+        
+        .threat-graph-container {
+            height: 300px;
+        }
+        
+        @media (max-width: 768px) {
+            .threat-graph-container {
+                height: 250px;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -287,7 +353,9 @@
                 <!-- Threat Graph Card -->
                 <div class="card p-6">
                     <h3 id="threat-title" class="text-xl font-bold holographic mb-4">Threat Activity Timeline</h3>
-                    <canvas id="threat-graph" height="250"></canvas>
+                    <div class="threat-graph-container">
+                        <canvas id="threat-graph"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -394,6 +462,23 @@
         </div>
     </main>
 
+    <!-- Report Modal -->
+    <div id="report-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-900 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto m-4">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-2xl font-bold holographic">Security Threat Report</h3>
+                    <button id="close-report" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="report" id="report-content">
+                    <!-- Report content will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-gray-900/80 p-4 text-center text-gray-400 border-t border-cyan-900/50">
         <div class="container mx-auto">
@@ -424,22 +509,38 @@
                     phishing: {
                         name: 'Phishing Campaign',
                         description: 'Detected coordinated phishing attempt targeting your network credentials.',
-                        action: 'Launching reverse phishing to trace and disable source servers...'
+                        action: 'Launching reverse phishing to trace and disable source servers...',
+                        type: 'Social Engineering',
+                        severity: 'High',
+                        impact: 'Credential Theft',
+                        countermeasure: 'AI-generated decoy credentials deployed to track attackers'
                     },
                     ddos: {
                         name: 'DDoS Attack',
                         description: 'Distributed Denial of Service attack originating from 23 botnet nodes.',
-                        action: 'Disrupting botnet C2 servers with targeted API floods...'
+                        action: 'Disrupting botnet C2 servers with targeted API floods...',
+                        type: 'Network Flood',
+                        severity: 'Critical',
+                        impact: 'Service Disruption',
+                        countermeasure: 'Traffic filtering and botnet C2 server takedown'
                     },
                     malware: {
                         name: 'Malware Infection',
                         description: 'RAT (Remote Access Trojan) detected attempting to establish C2 connection.',
-                        action: 'Exploiting malware C2 server vulnerabilities to disable infrastructure...'
+                        action: 'Exploiting malware C2 server vulnerabilities to disable infrastructure...',
+                        type: 'Remote Access',
+                        severity: 'High',
+                        impact: 'System Compromise',
+                        countermeasure: 'C2 server exploitation and malware signature update'
                     },
                     none: {
                         name: 'No Threats',
                         description: 'Network appears clean with no immediate threats detected.',
-                        action: 'Continue monitoring for suspicious activity.'
+                        action: 'Continue monitoring for suspicious activity.',
+                        type: 'None',
+                        severity: 'None',
+                        impact: 'None',
+                        countermeasure: 'None'
                     }
                 },
                 terminal: {
@@ -447,7 +548,24 @@
                     scanning: "> Scanning for known IOCs (Indicators of Compromise)...",
                     checking: "> Checking threat intelligence feeds...",
                     evaluating: "> Evaluating behavioral anomalies...",
-                    complete: "> Analysis complete. Threat level: "
+                    complete: "> Analysis complete. Threat level: ",
+                    rescan: "> Initiating post-countermeasure scan...",
+                    clear: "> System clean. No threats detected.",
+                    report: "> Generating comprehensive security report..."
+                },
+                report: {
+                    title: "SECURITY THREAT REPORT",
+                    date: "Report Date: ",
+                    scanResults: "Scan Results",
+                    threatDetails: "Threat Details",
+                    countermeasures: "Applied Countermeasures",
+                    systemStatus: "System Status",
+                    recommendations: "Recommendations",
+                    noThreats: "No active threats detected during this scan.",
+                    statusGood: "All systems operational",
+                    recommendUpdate: "Recommend updating firewall rules and threat signatures",
+                    recommendMonitor: "Continue monitoring network for suspicious activity",
+                    reportGenerated: "Report generated by SecureNetHero AI Defense System"
                 }
             },
             hi: {
@@ -465,22 +583,38 @@
                     phishing: {
                         name: 'फिशिंग अभियान',
                         description: 'आपके नेटवर्क क्रेडेंशियल्स को लक्षित करने वाले समन्वित फिशिंग प्रयास का पता चला।',
-                        action: 'स्रोत सर्वरों को ट्रेस और अक्षम करने के लिए रिवर्स फिशिंग शुरू की जा रही है...'
+                        action: 'स्रोत सर्वरों को ट्रेस और अक्षम करने के लिए रिवर्स फिशिंग शुरू की जा रही है...',
+                        type: 'सोशल इंजीनियरिंग',
+                        severity: 'उच्च',
+                        impact: 'क्रेडेंशियल चोरी',
+                        countermeasure: 'हमलावरों को ट्रैक करने के लिए AI-जनित डिकॉय क्रेडेंशियल्स तैनात किए गए'
                     },
                     ddos: {
                         name: 'DDoS हमला',
                         description: '23 बॉटनेट नोड्स से उत्पन्न वितरित सेवा इनकार हमला।',
-                        action: 'लक्षित API फ्लड के साथ बॉटनेट C2 सर्वरों को बाधित किया जा रहा है...'
+                        action: 'लक्षित API फ्लड के साथ बॉटनेट C2 सर्वरों को बाधित किया जा रहा है...',
+                        type: 'नेटवर्क फ्लड',
+                        severity: 'गंभीर',
+                        impact: 'सेवा व्यवधान',
+                        countermeasure: 'ट्रैफ़िक फ़िल्टरिंग और बॉटनेट C2 सर्वर टेकडाउन'
                     },
                     malware: {
                         name: 'मैलवेयर संक्रमण',
                         description: 'C2 कनेक्शन स्थापित करने का प्रयास कर रहे RAT (रिमोट एक्सेस ट्रोजन) का पता चला।',
-                        action: 'मैलवेयर C2 सर्वर कमजोरियों का शोषण करके बुनियादी ढांचे को अक्षम किया जा रहा है...'
+                        action: 'मैलवेयर C2 सर्वर कमजोरियों का शोषण करके बुनियादी ढांचे को अक्षम किया जा रहा है...',
+                        type: 'रिमोट एक्सेस',
+                        severity: 'उच्च',
+                        impact: 'सिस्टम समझौता',
+                        countermeasure: 'C2 सर्वर एक्सप्लॉइटेशन और मैलवेयर सिग्नेचर अपडेट'
                     },
                     none: {
                         name: 'कोई खतरा नहीं',
                         description: 'नेटवर्क साफ दिखाई देता है और कोई तत्काल खतरा का पता नहीं चला है।',
-                        action: 'संदिग्ध गतिविधि के लिए निगरानी जारी रखें।'
+                        action: 'संदिग्ध गतिविधि के लिए निगरानी जारी रखें।',
+                        type: 'कोई नहीं',
+                        severity: 'कोई नहीं',
+                        impact: 'कोई नहीं',
+                        countermeasure: 'कोई नहीं'
                     }
                 },
                 terminal: {
@@ -488,7 +622,24 @@
                     scanning: "> ज्ञात IOCs (समझौते के संकेतक) के लिए स्कैनिंग...",
                     checking: "> खतरा खुफिया फीड की जाँच की जा रही है...",
                     evaluating: "> व्यवहारिक विसंगतियों का मूल्यांकन किया जा रहा है...",
-                    complete: "> विश्लेषण पूरा हुआ। खतरा स्तर: "
+                    complete: "> विश्लेषण पूरा हुआ। खतरा स्तर: ",
+                    rescan: "> पोस्ट-काउंटरमेशर स्कैन शुरू कर रहा है...",
+                    clear: "> सिस्टम साफ। कोई खतरा नहीं पाया गया।",
+                    report: "> व्यापक सुरक्षा रिपोर्ट तैयार की जा रही है..."
+                },
+                report: {
+                    title: "सुरक्षा खतरा रिपोर्ट",
+                    date: "रिपोर्ट तिथि: ",
+                    scanResults: "स्कैन परिणाम",
+                    threatDetails: "खतरा विवरण",
+                    countermeasures: "लागू काउंटरमेशर्स",
+                    systemStatus: "सिस्टम स्थिति",
+                    recommendations: "सिफारिशें",
+                    noThreats: "इस स्कैन के दौरान कोई सक्रिय खतरे का पता नहीं चला।",
+                    statusGood: "सभी सिस्टम संचालनात्मक",
+                    recommendUpdate: "फायरवॉल नियमों और खतरा हस्ताक्षरों को अपडेट करने की सिफारिश",
+                    recommendMonitor: "संदिग्ध गतिविधि के लिए नेटवर्क की निगरानी जारी रखें",
+                    reportGenerated: "रिपोर्ट सिक्योरनेटहीरो AI डिफेंस सिस्टम द्वारा तैयार की गई"
                 }
             }
         };
@@ -498,6 +649,8 @@
         let billingMinutes = 0;
         let activeThreat = null;
         let counterInterval = null;
+        let scanHistory = [];
+        let currentScan = {};
 
         // Initialize Chart
         const ctx = document.getElementById('threat-graph').getContext('2d');
@@ -627,13 +780,24 @@
             }
         }, 60000);
 
-        // Threat Analysis
+        // Threat Analysis - Complete Algorithm Implementation
         document.getElementById('analyze-btn').addEventListener('click', async () => {
             const data = document.getElementById('network-data').value;
             if (!data) {
                 alert(currentLang === 'en' ? 'Please enter network data to analyze.' : 'विश्लेषण करने के लिए कृपया नेटवर्क डेटा दर्ज करें।');
                 return;
             }
+
+            // Reset previous state
+            activeThreat = null;
+            currentScan = {
+                timestamp: new Date(),
+                input: data,
+                threatDetected: false,
+                threatType: null,
+                countermeasureApplied: false,
+                rescanClean: false
+            };
 
             // Show terminal and simulate analysis
             const terminal = document.getElementById('terminal-output');
@@ -653,6 +817,8 @@
             // Randomly detect a threat (or none)
             const threats = ['phishing', 'ddos', 'malware', 'none'];
             activeThreat = threats[Math.floor(Math.random() * 3.5)]; // Slightly favor threats
+            currentScan.threatDetected = activeThreat !== 'none';
+            currentScan.threatType = activeThreat !== 'none' ? activeThreat : null;
             
             const threatData = translations[currentLang].threats[activeThreat] || translations[currentLang].threats.none;
             const threatLevel = activeThreat === 'none' ? 0 : 
@@ -705,6 +871,15 @@
                 updateChart(progress);
                 await delay(50);
             }
+            
+            // If no threat, generate report immediately
+            if (activeThreat === 'none') {
+                currentScan.rescanClean = true;
+                scanHistory.push(currentScan);
+                addTerminalLine(terminal, translations[currentLang].terminal.report);
+                await delay(1500);
+                generateReport();
+            }
         });
 
         // Counter-Attack Actions
@@ -718,6 +893,10 @@
                 document.getElementById(buttonId).classList.add('opacity-50', 'cursor-not-allowed');
                 document.getElementById(buttonId).disabled = true;
                 
+                // Update current scan
+                currentScan.countermeasureApplied = true;
+                currentScan.countermeasureType = threatType;
+                
                 // Show counter-attack on chart
                 chart.data.datasets[1].hidden = false;
                 chart.update();
@@ -725,9 +904,10 @@
                 // Simulate counter-attack progress
                 let progress = 0;
                 const progressBar = document.getElementById('counter-progress');
+                const terminal = document.getElementById('terminal-output');
                 
                 if (counterInterval) clearInterval(counterInterval);
-                counterInterval = setInterval(() => {
+                counterInterval = setInterval(async () => {
                     progress += 2;
                     progressBar.style.width = `${progress}%`;
                     
@@ -751,6 +931,33 @@
                         missionPoints += 30;
                         updateMissionPoints();
                         
+                        // Initiate rescan
+                        addTerminalLine(terminal, translations[currentLang].terminal.rescan);
+                        await delay(2000);
+                        
+                        // Simulate rescan results
+                        const rescanClean = Math.random() > 0.2; // 80% chance clean
+                        currentScan.rescanClean = rescanClean;
+                        
+                        if (rescanClean) {
+                            addTerminalLine(terminal, translations[currentLang].terminal.clear);
+                            updateChart(0, 0);
+                            document.getElementById('threat-percent').textContent = '0%';
+                            document.getElementById('threat-marker').style.left = '0%';
+                            document.getElementById('threat-level').classList.add('hidden');
+                            document.getElementById('threat-description').textContent = 
+                                currentLang === 'en' ? 'No threats detected.' : 'कोई खतरा नहीं पाया गया।';
+                        } else {
+                            addTerminalLine(terminal, currentLang === 'en' ? 
+                                "> Residual threat detected. Additional countermeasures may be required." :
+                                "> अवशिष्ट खतरा पाया गया। अतिरिक्त काउंटरमेशर्स की आवश्यकता हो सकती है।");
+                        }
+                        
+                        // Generate report
+                        addTerminalLine(terminal, translations[currentLang].terminal.report);
+                        await delay(1500);
+                        generateReport();
+                        
                         // Reset after delay
                         setTimeout(() => {
                             progressBar.style.width = '0%';
@@ -759,6 +966,9 @@
                             chart.data.datasets[1].hidden = true;
                             chart.update();
                         }, 3000);
+                        
+                        // Save scan to history
+                        scanHistory.push(currentScan);
                     }
                 }, 50);
             });
@@ -768,15 +978,133 @@
         setupCounterAction('ddos-counter', 'ddos');
         setupCounterAction('malware-counter', 'malware');
 
-        // Download Report
-        document.getElementById('download-report').addEventListener('click', () => {
+        // Generate Security Report
+        function generateReport() {
             const t = translations[currentLang];
-            alert(currentLang === 'en' ? 
-                'Downloading comprehensive security report...' : 
-                'व्यापक सुरक्षा रिपोर्ट डाउनलोड की जा रही है...');
+            const reportContent = document.getElementById('report-content');
+            reportContent.innerHTML = '';
             
-            missionPoints += 5;
-            updateMissionPoints();
+            // Report Header
+            const header = document.createElement('div');
+            header.className = 'report-header';
+            header.innerHTML = `
+                <h2 class="text-xl font-bold holographic mb-2">${t.report.title}</h2>
+                <p>${t.report.date}${new Date().toLocaleString()}</p>
+            `;
+            reportContent.appendChild(header);
+            
+            // Scan Results Section
+            const scanSection = document.createElement('div');
+            scanSection.className = 'report-section';
+            scanSection.innerHTML = `
+                <h3 class="report-title">${t.report.scanResults}</h3>
+            `;
+            
+            if (currentScan.threatDetected) {
+                scanSection.innerHTML += `
+                    <p>${currentLang === 'en' ? 
+                        'The scan detected a potential security threat.' : 
+                        'स्कैन ने एक संभावित सुरक्षा खतरे का पता लगाया।'}</p>
+                    <div class="mt-4">
+                        <span class="text-sm font-bold ${currentScan.threatType === 'ddos' ? 'severity-high' : 
+                            currentScan.threatType === 'malware' ? 'severity-medium' : 'severity-low'}">
+                            ${currentLang === 'en' ? 'Threat Detected' : 'खतरा पता चला'}: 
+                            ${t.threats[currentScan.threatType].name}
+                        </span>
+                    </div>
+                `;
+            } else {
+                scanSection.innerHTML += `
+                    <p>${t.report.noThreats}</p>
+                `;
+            }
+            reportContent.appendChild(scanSection);
+            
+            // Threat Details Section
+            if (currentScan.threatDetected) {
+                const threatSection = document.createElement('div');
+                threatSection.className = 'report-section';
+                threatSection.innerHTML = `
+                    <h3 class="report-title">${t.report.threatDetails}</h3>
+                    <table class="report-table">
+                        <tr>
+                            <th>${currentLang === 'en' ? 'Type' : 'प्रकार'}</th>
+                            <td>${t.threats[currentScan.threatType].type}</td>
+                        </tr>
+                        <tr>
+                            <th>${currentLang === 'en' ? 'Severity' : 'गंभीरता'}</th>
+                            <td class="${currentScan.threatType === 'ddos' ? 'severity-high' : 
+                                currentScan.threatType === 'malware' ? 'severity-medium' : 'severity-low'}">
+                                ${t.threats[currentScan.threatType].severity}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>${currentLang === 'en' ? 'Potential Impact' : 'संभावित प्रभाव'}</th>
+                            <td>${t.threats[currentScan.threatType].impact}</td>
+                        </tr>
+                        <tr>
+                            <th>${currentLang === 'en' ? 'Description' : 'विवरण'}</th>
+                            <td>${t.threats[currentScan.threatType].description}</td>
+                        </tr>
+                    </table>
+                `;
+                reportContent.appendChild(threatSection);
+            }
+            
+            // Countermeasures Section
+            if (currentScan.countermeasureApplied) {
+                const counterSection = document.createElement('div');
+                counterSection.className = 'report-section';
+                counterSection.innerHTML = `
+                    <h3 class="report-title">${t.report.countermeasures}</h3>
+                    <p>${t.threats[currentScan.countermeasureType].countermeasure}</p>
+                    <div class="mt-3">
+                        <span class="text-sm font-bold ${currentScan.rescanClean ? 'text-green-400' : 'text-yellow-400'}">
+                            ${currentScan.rescanClean ? 
+                                (currentLang === 'en' ? 'Threat successfully neutralized' : 'खतरा सफलतापूर्वक बेअसर हो गया') : 
+                                (currentLang === 'en' ? 'Partial success - residual threat detected' : 'आंशिक सफलता - अवशिष्ट खतरा पाया गया')}
+                        </span>
+                    </div>
+                `;
+                reportContent.appendChild(counterSection);
+            }
+            
+            // System Status Section
+            const statusSection = document.createElement('div');
+            statusSection.className = 'report-section';
+            statusSection.innerHTML = `
+                <h3 class="report-title">${t.report.systemStatus}</h3>
+                <p>${t.report.statusGood}</p>
+            `;
+            reportContent.appendChild(statusSection);
+            
+            // Recommendations Section
+            const recommendSection = document.createElement('div');
+            recommendSection.className = 'report-section';
+            recommendSection.innerHTML = `
+                <h3 class="report-title">${t.report.recommendations}</h3>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>${t.report.recommendUpdate}</li>
+                    <li>${t.report.recommendMonitor}</li>
+                </ul>
+            `;
+            reportContent.appendChild(recommendSection);
+            
+            // Footer
+            const footer = document.createElement('div');
+            footer.className = 'report-section text-sm text-gray-400 mt-6 pt-4 border-t border-gray-700';
+            footer.innerHTML = `
+                <p>${t.report.reportGenerated}</p>
+            `;
+            reportContent.appendChild(footer);
+            
+            // Show report modal
+            document.getElementById('report-modal').classList.remove('hidden');
+        }
+
+        // Close Report Modal
+        document.getElementById('close-report').addEventListener('click', () => {
+            document.getElementById('report-modal').classList.add('hidden');
         });
 
         // Helper functions
